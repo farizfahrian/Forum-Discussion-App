@@ -4,9 +4,9 @@ import { ActionType } from "./action";
 function threadsReducer(threads: Thread[] = [], action: any) {
     switch (action.type) {
         case ActionType.RECEIVE_THREADS:
-            return action.payload.threads;
+            return action.payload;
         case ActionType.ADD_THREAD:
-            return [...threads, action.payload.thread];
+            return [...threads, action.payload];
         case ActionType.TOGGLE_VOTE_THREAD:
             return threads.map((thread) => {
                 if (thread.id === action.payload.threadId) {

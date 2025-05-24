@@ -13,9 +13,12 @@ function RegisterPage() {
         navigate('/');
     }
     return (
-        <section className="register-page">
-            <RegisterInput register={onRegister} />
-            <p>Already have an account? <a href="/login">Login</a></p>
+        <section className="bg-neutral-950 h-screen flex items-center justify-center">
+            <div className="max-w-md w-full mx-auto rounded-lg px-8 py-6 bg-neutral-900 text-neutral-50 space-y-4">
+                <h1 className="text-2xl font-bold mb-4">Register Page</h1>
+                <RegisterInput register={onRegister} />
+                <p>Already have an account? <a href="/login" className="underline">Login</a></p>
+            </div>
         </section>
     );
 }

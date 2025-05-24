@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App.tsx'
 import store from './states'
+import './styles/style.css';
 
 const root = document.getElementById('root')
 
