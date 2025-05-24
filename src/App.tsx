@@ -1,33 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { asyncPreloadProcess } from "./states/isPreload/action";
+import { asyncUnsetAuthUser } from "./states/authUser/action";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage.tsx";
+import RegisterPage from "./pages/RegisterPage.tsx";
+import Loading from "./components/Loading.tsx";
+import Navigation from "./components/Navigation.tsx";
+import HomePage from "./pages/HomePage.tsx";
+import DetailPage from "./pages/DetailPage.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { authUser, isPreload } = useSelector((states: any) => states);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncPreloadProcess() as any);
+  }, [dispatch]);
+
+  const onSignOut = () => {
+    dispatch(asyncUnsetAuthUser() as any);
+  }
+
+  if (isPreload) {
+    return null;
+  }
+
+  if (!authUser) {
+    return (
+    <>
+      <Loading />
+      <main>
+        <Routes>
+          <Route path="/*" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </main>
+    </> 
+    )
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Loading />
+    <div>
+      <header>
+        <Navigation />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/threads/:id" element={<DetailPage />} />
+        </Routes>
+      </main>
+    </div>
     </>
   )
 }

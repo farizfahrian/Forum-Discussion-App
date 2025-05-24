@@ -1,0 +1,49 @@
+import api, { LoginPayload } from '../../../utils/api';
+
+const ActionType = {
+    SET_AUTH_USER: 'SET_AUTH_USER',
+    UNSET_AUTH_USER: 'UNSET_AUTH_USER',    
+};
+
+function setAuthUserActionCreator(authUser: any) {
+    return {
+        type: ActionType.SET_AUTH_USER,
+        payload: authUser,
+    };
+}
+
+function unsetAuthUserActionCreator() {
+    return {
+        type: ActionType.UNSET_AUTH_USER,
+    };
+}
+
+function asyncSetAuthUser({ email, password }: LoginPayload) {
+    return async (dispatch: (action: any) => void) => {
+        try {
+            // Get token from login
+            const token = await api.login({ email, password });
+            api.putAccessToken(token);
+            // Fetch user profile
+            const profile = await api.getOwnProfile();
+            dispatch(setAuthUserActionCreator(profile));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+}
+
+function asyncUnsetAuthUser() {
+    return (dispatch: (action: any) => void) => {
+        dispatch(unsetAuthUserActionCreator());
+        api.putAccessToken('');
+    };
+}
+
+export { 
+    ActionType, 
+    setAuthUserActionCreator, 
+    unsetAuthUserActionCreator, 
+    asyncSetAuthUser, 
+    asyncUnsetAuthUser 
+};
