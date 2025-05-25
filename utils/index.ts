@@ -1,7 +1,7 @@
-function postedAt(date) {
+function postedAt(date: string | number | Date) {
     const now = new Date();
     const posted = new Date(date);
-    const diff = now - posted;
+    const diff = now.getTime() - posted.getTime();
     const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor(diff / (1000 * 60 * 60));
     const diffMinutes = Math.floor(diff / (1000 * 60));

@@ -62,7 +62,7 @@ export interface LoginPayload {
 export interface CreateThreadPayload {
   title: string;
   body: string;
-  category?: string;
+  category: string;
 }
 
 export interface CreateCommentPayload {

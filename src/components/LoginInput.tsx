@@ -1,7 +1,7 @@
 import { LoginPayload } from "../../utils/api";
 import useInput from "../hooks/useInput";
 
-function LoginInput({ login }: { login: (payload: LoginPayload) => void }) {
+function LoginInput({ login }: {login: (payload: LoginPayload) => void}) {
     const [email, onEmailChange] = useInput('');
     const [password, onPasswordChange] = useInput('');
     

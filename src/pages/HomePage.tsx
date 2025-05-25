@@ -27,18 +27,18 @@ function HomePage() {
     dispatch(asyncToggleVoteThread({threadId}) as any);
   }
 
-  const threadsList = threads.map((thread: any) => {
+  const threadList = threads.map((thread: any) => {
     return {
       ...thread,
       owner: users.find((user: any) => user.id === thread.ownerId) as User,
-      authUser: users.id,
+      authUser: authUser?.id,
     }
   })
 
   return (
     <section className="home-page">
         <ThreadInput onAddThread={onAddThread} />
-        <ThreadsList threads={threadsList} />
+        <ThreadsList threads={threadList} onVoteThread={onVoteThread} />
     </section>
   );
 }

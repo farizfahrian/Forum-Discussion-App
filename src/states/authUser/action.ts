@@ -1,3 +1,4 @@
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api, { LoginPayload } from '../../../utils/api';
 
 const ActionType = {
@@ -8,27 +9,33 @@ const ActionType = {
 function setAuthUserActionCreator(authUser: any) {
     return {
         type: ActionType.SET_AUTH_USER,
-        payload: authUser,
+        payload: {
+            authUser,
+        },
     };
 }
 
 function unsetAuthUserActionCreator() {
     return {
-        type: ActionType.UNSET_AUTH_USER,
+        type: ActionType.UNSET_AUTH_USER
     };
 }
 
 function asyncSetAuthUser({ email, password }: LoginPayload) {
     return async (dispatch: (action: any) => void) => {
+        dispatch(showLoading());
         try {
             // Get token from login
             const token = await api.login({ email, password });
+            alert("TOKEN:" + token);
             api.putAccessToken(token);
             // Fetch user profile
             const profile = await api.getOwnProfile();
             dispatch(setAuthUserActionCreator(profile));
         } catch (error) {
             console.log(error);
+        } finally {
+            dispatch(hideLoading());
         }
     };
 }
@@ -37,6 +44,7 @@ function asyncUnsetAuthUser() {
     return (dispatch: (action: any) => void) => {
         dispatch(unsetAuthUserActionCreator());
         api.putAccessToken('');
+        dispatch(hideLoading());
     };
 }
 

@@ -12,12 +12,12 @@ function threadsReducer(threads: Thread[] = [], action: any) {
                 if (thread.id === action.payload.threadId) {
                     return {
                         ...thread,
-                        upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-                            ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
-                            : [...thread.upVotesBy, action.payload.userId],
-                        downVotesBy: thread.downVotesBy.includes(action.payload.userId)
-                            ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
-                            : [...thread.downVotesBy, action.payload.userId],
+                        upVotesBy: action.payload.voteType === 1
+                            ? [...thread.upVotesBy.filter((id) => id !== action.payload.userId), action.payload.userId]
+                            : thread.upVotesBy.filter((id) => id !== action.payload.userId),
+                        downVotesBy: action.payload.voteType === -1
+                            ? [...thread.downVotesBy.filter((id) => id !== action.payload.userId), action.payload.userId]
+                            : thread.downVotesBy.filter((id) => id !== action.payload.userId),
                     };
                 }
                 return thread;

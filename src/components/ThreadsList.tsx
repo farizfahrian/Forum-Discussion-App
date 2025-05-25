@@ -1,13 +1,15 @@
 import { Thread } from "../../utils/api";
 import ThreadItem from "./ThreadItem";
 
-function ThreadsList({threads}: {threads: Thread[]}) {
+function ThreadsList({threads, onVoteThread}: {threads: Thread[], onVoteThread: (threadId: any) => void}) {
     return (
-        <div>
+        <div className="flex flex-col gap-2 items-center">
             <h2>Threads List</h2>
-            {threads.map((thread) => (
-                <ThreadItem key={thread.id} thread={thread} />
-            ))}
+            <div className="flex flex-col gap-2">
+                {threads.map((thread) => (
+                    <ThreadItem key={thread.id} {...thread} onVoteThread={onVoteThread} />
+                ))}
+            </div>
         </div>
     );
 }

@@ -11,7 +11,10 @@ import HomePage from "./pages/HomePage.tsx";
 import DetailPage from "./pages/DetailPage.tsx";
 
 function App() {
-  const { authUser, isPreload } = useSelector((states: any) => states);
+  const { 
+    authUser,
+    isPreload = false
+  } = useSelector((state: any) => state);
 
   const dispatch = useDispatch();
 
@@ -27,11 +30,11 @@ function App() {
     return null;
   }
 
-  if (!authUser) {
+  if (authUser === null) {
     return (
     <>
       <Loading />
-      <main>
+      <main className="bg-neutral-950">
         <Routes>
           <Route path="/*" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -47,7 +50,7 @@ function App() {
       <Loading />
     <div>
       <header>
-        <Navigation />
+        <Navigation authUser={authUser} signOut={onSignOut}/>
       </header>
       <main>
         <Routes>
