@@ -2,15 +2,12 @@ import { useDispatch } from "react-redux";
 import LoginInput from "../components/LoginInput";
 import { LoginPayload } from "../../utils/api";
 import { asyncSetAuthUser } from "../states/authUser/action";
-import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const onLogin = ({ email, password }: LoginPayload) => {
         dispatch(asyncSetAuthUser({ email, password }) as any);
-        navigate('/');
     }
     return (
         <section className="bg-neutral-950 h-screen flex items-center justify-center">

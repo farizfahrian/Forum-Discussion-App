@@ -1,16 +1,13 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { RegisterPayload } from "../../utils/api";
 import { asyncRegisterUsers } from "../states/users/action";
 import RegisterInput from "../components/RegisterInput";
 
 function RegisterPage() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     
     const onRegister = ({name, email, password}: RegisterPayload) => {
         dispatch(asyncRegisterUsers({ name, email, password }) as any);
-        navigate('/');
     }
     return (
         <section className="bg-neutral-950 h-screen flex items-center justify-center">

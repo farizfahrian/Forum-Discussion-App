@@ -9,12 +9,16 @@ import Loading from "./components/Loading.tsx";
 import Navigation from "./components/Navigation.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import DetailPage from "./pages/DetailPage.tsx";
+import LeaderboardPage from "./pages/LeaderboardPage.tsx";
 
 function App() {
-  const { 
-    authUser,
-    isPreload = false
-  } = useSelector((state: any) => state);
+  // const { 
+  //   authUser,
+  //   isPreload = false
+  // } = useSelector((state: any) => state);
+
+  const authUser = useSelector((state: any) => state.authUser)
+  const isPreload = useSelector((state: any) => state.isPreload)
 
   const dispatch = useDispatch();
 
@@ -34,11 +38,15 @@ function App() {
     return (
     <>
       <Loading />
+      <header>
+        <Navigation signOut={onSignOut}/>
+      </header>
       <main className="bg-neutral-950">
         <Routes>
           <Route path="/*" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
         </Routes>
       </main>
     </> 
@@ -56,6 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/threads/:id" element={<DetailPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
         </Routes>
       </main>
     </div>

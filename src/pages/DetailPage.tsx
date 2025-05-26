@@ -1,8 +1,9 @@
+import ThreadItem from "../components/ThreadItem";
 
 function DetailPage() {
     return (
         <section className="detail-page">
-            <p>Detail Page</p>
+            <ThreadItem />
         </section>
     );
 }

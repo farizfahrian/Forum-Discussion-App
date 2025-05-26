@@ -14,7 +14,7 @@ function RegisterInput({ register }: { register: (payload: RegisterPayload) => v
             <input type="email" placeholder="Email" value={email} onChange={onEmailChange} className="bg-neutral-800 placeholder-neutral-500 text-neutral-300 block w-full px-4 py-2 rounded-md mb-3" />
             <label htmlFor="password">Password</label>
             <input type="password" placeholder="Password" value={password} onChange={onPasswordChange} className="bg-neutral-800 placeholder-neutral-500 text-neutral-300 block w-full px-4 py-2 rounded-md mb-3" />
-            <button className="bg-neutral-700 text-neutral-300 hover:bg-neutral-600 w-full px-4 py-2 rounded-md" type="submit" onClick={() => register({ name, email, password })}>Register</button>
+            <button className="bg-neutral-700 text-neutral-300 hover:bg-neutral-600 w-full px-4 py-2 rounded-md" type="button" onClick={() => register({ name, email, password })}>Register</button>
         </form>
     );
 }

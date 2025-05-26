@@ -27,13 +27,12 @@ function asyncSetAuthUser({ email, password }: LoginPayload) {
         try {
             // Get token from login
             const token = await api.login({ email, password });
-            alert("TOKEN:" + token);
             api.putAccessToken(token);
             // Fetch user profile
-            const profile = await api.getOwnProfile();
-            dispatch(setAuthUserActionCreator(profile));
+            const authUser = await api.getOwnProfile();
+            dispatch(setAuthUserActionCreator(authUser));
         } catch (error) {
-            console.log(error);
+            alert(error);
         } finally {
             dispatch(hideLoading());
         }
