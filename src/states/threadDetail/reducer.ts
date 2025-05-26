@@ -18,6 +18,29 @@ function threadDetailReducer(threadDetail: threadDetail | null = null, action: a
                     ? threadDetail?.downVotesBy.filter((id) => id !== action.payload.userId)
                     : [...threadDetail?.downVotesBy || [], action.payload.userId],
             };
+        case ActionType.ADD_THREAD_COMMENT:
+            return {
+                ...threadDetail,
+                comments: [...threadDetail?.comments || [], action.payload.comment],
+            };
+        case ActionType.TOGGLE_VOTE_COMMENT:
+            return {
+                ...threadDetail,
+                comments: threadDetail?.comments.map((comment) => {
+                    if (comment.id === action.payload.commentId) {
+                        return {
+                            ...comment,
+                            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+                                : [...comment.upVotesBy || [], action.payload.userId],
+                            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+                                : [...comment.downVotesBy || [], action.payload.userId],
+                        };
+                    }
+                    return comment;
+                }),
+            };
         default:
             return threadDetail;
     }

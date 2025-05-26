@@ -20,7 +20,7 @@ function addThreadActionCreator(thread: Thread) {
     };
 }
 
-function toggleVoteThreadActionCreator({threadId, voteType, userId}: {threadId: string, voteType: number, userId: string}) {
+function toggleVoteThreadActionCreator({ threadId, voteType, userId }: { threadId: string, voteType: number, userId: string }) {
     return {
         type: ActionType.TOGGLE_VOTE_THREAD,
         payload: {
@@ -42,16 +42,15 @@ function asyncAddThread({ title, body, category }: CreateThreadPayload) {
     };
 }
 
-function asyncToggleVoteThread({threadId, voteType}: {threadId: string, voteType: number}) {
+function asyncToggleVoteThread({ threadId, voteType }: { threadId: string, voteType: number }) {
     return async (dispatch: (action: any) => void, getState: () => any) => {
-        const {authUser} = getState();
-        dispatch(toggleVoteThreadActionCreator({threadId, voteType, userId: authUser.id}));
+        const { authUser } = getState();
+        dispatch(toggleVoteThreadActionCreator({ threadId, voteType, userId: authUser.id }));
 
         try {
             await api.upVoteThread(threadId);
         } catch (error) {
             alert(error);
-            dispatch(toggleVoteThreadActionCreator({threadId, voteType, userId: authUser.id}));
         }
     };
 }

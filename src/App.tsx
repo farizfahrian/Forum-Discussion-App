@@ -41,11 +41,12 @@ function App() {
       <header>
         <Navigation signOut={onSignOut}/>
       </header>
-      <main className="bg-neutral-950">
+      <main className="bg-neutral-900 h-svh">
         <Routes>
           <Route path="/*" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/threads/:id" element={<DetailPage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
         </Routes>
       </main>
@@ -60,7 +61,7 @@ function App() {
       <header>
         <Navigation authUser={authUser} signOut={onSignOut}/>
       </header>
-      <main>
+      <main className="bg-neutral-900 h-svh">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/threads/:id" element={<DetailPage />} />

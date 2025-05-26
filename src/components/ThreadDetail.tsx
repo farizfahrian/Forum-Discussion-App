@@ -2,14 +2,12 @@ import { postedAt } from "../../utils";
 import Chip from "./Chip";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-function ThreadItem({ id, owner, title, body, category, createdAt, upVotesBy, downVotesBy, totalComments, onVoteThread }: any) {
+function ThreadDetail({ id, owner, title, body, category, createdAt, upVotesBy, downVotesBy, totalComments, onVoteThread }: any) {
     const authUser = useSelector((state: any) => state.authUser);
-    const [upVoteActive, setUpVoteActive] = useState(upVotesBy.includes(authUser?.id));
-    const [downVoteActive, setDownVoteActive] = useState(downVotesBy.includes(authUser?.id));
+    const [upVoteActive, setUpVoteActive] = useState(Array.isArray(upVotesBy) ? upVotesBy.includes(authUser?.id) : false);
+    const [downVoteActive, setDownVoteActive] = useState(Array.isArray(downVotesBy) ? downVotesBy.includes(authUser?.id) : false);
 
-    const navigate = useNavigate();
     const handleUpVote = () => {
         if (!authUser) {
             alert("Please sign in first");
@@ -41,7 +39,7 @@ function ThreadItem({ id, owner, title, body, category, createdAt, upVotesBy, do
     }
 
     return (
-        <div onClick={() => navigate(`/threads/${id}`)} className="flex flex-col gap-2 max-w-lg bg-neutral-800 text-neutral-100 p-4 rounded-lg">
+        <div className="flex flex-col gap-2 max-w-lg bg-neutral-800 text-neutral-100 p-4 rounded-lg">
             <header className="flex justify-between">
                 <div className="flex gap-2">
                     <img src={owner.avatar} alt={owner.name} className="w-12 h-12 rounded-full" />
@@ -73,4 +71,4 @@ function ThreadItem({ id, owner, title, body, category, createdAt, upVotesBy, do
     );
 }
 
-export default ThreadItem;
+export default ThreadDetail;

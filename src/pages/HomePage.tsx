@@ -35,7 +35,7 @@ function HomePage() {
   })
 
   return (
-    <section className="bg-neutral-900 pt-32">
+    <section className="bg-neutral-900 pt-32 pb-16">
         {
           authUser === undefined ? (
             <>

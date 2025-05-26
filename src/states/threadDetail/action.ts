@@ -1,15 +1,19 @@
-import api, { threadDetail } from "../../../utils/api";
+import api, { CreateCommentPayload, threadDetail } from "../../../utils/api";
 
 const ActionType = {
     RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
     CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
     TOGGLE_VOTE_THREAD_DETAIL: 'TOGGLE_VOTE_THREAD_DETAIL',
+    ADD_THREAD_COMMENT: 'ADD_THREAD_COMMENT',
+    TOGGLE_VOTE_COMMENT: 'TOGGLE_VOTE_COMMENT',
 };
 
 function receiveThreadDetailActionCreator(threadDetail: threadDetail) {
     return {
         type: ActionType.RECEIVE_THREAD_DETAIL,
-        payload: threadDetail,
+        payload: {
+            threadDetail
+        },
     };
 }
 
@@ -19,11 +23,31 @@ function clearThreadDetailActionCreator() {
     };
 }
 
-function toggleVoteThreadDetailActionCreator(userId: string) {
+function toggleVoteThreadDetailActionCreator(userId: string, threadId: string, voteType: number) {
     return {
         type: ActionType.TOGGLE_VOTE_THREAD_DETAIL,
         payload: {
-            userId
+            userId,
+            threadId,
+            voteType
+        }
+    }
+}
+
+function addThreadCommentActionCreator(comment: CreateCommentPayload) {
+    return {
+        type: ActionType.ADD_THREAD_COMMENT,
+        payload: comment,
+    }
+}
+
+function toggleVoteCommentActionCreator({userId, commentId, voteType }: {userId: string, commentId: string, voteType: number}) {
+    return {
+        type: ActionType.TOGGLE_VOTE_COMMENT,
+        payload: {
+            userId,
+            commentId,
+            voteType
         }
     }
 }
@@ -39,16 +63,39 @@ function asyncReceiveThreadDetail(threadId: string) {
     };
 }
 
-function asyncToggleVoteThreadDetail() {
+function asyncToggleVoteThreadDetail(threadId: string, voteType: number) {
     return async (dispatch: (action: any) => void, getState: () => any) => {
-        const {authUser, threadDetail} = getState();
-        dispatch(toggleVoteThreadDetailActionCreator(authUser.id));
-
+        const {authUser} = getState();
+        dispatch(toggleVoteThreadDetailActionCreator(authUser.id, threadId, voteType));
+        
         try {
-            await api.upVoteThread(threadDetail.id);
+            await api.upVoteThread(threadId);
         } catch (error) {
             alert(error);
-            dispatch(toggleVoteThreadDetailActionCreator(authUser.id));
+            dispatch(toggleVoteThreadDetailActionCreator(authUser.id, threadId, voteType));
+        }
+    };
+}
+
+function asyncAddThreadComment(comment: CreateCommentPayload) {
+    return async (dispatch: (action: any) => void) => {
+        try {
+            await api.createComment(comment);
+            dispatch(addThreadCommentActionCreator(comment));
+        } catch (error) {
+            alert(error);
+        }
+    };
+}
+
+function asyncToggleVoteComment({commentId, voteType}: {commentId: string, voteType: number}) {
+    return async (dispatch: (action: any) => void, getState: () => any) => {
+        const {authUser} = getState();
+        
+        try {
+            dispatch(toggleVoteCommentActionCreator({ userId: authUser.id, commentId, voteType}));
+        } catch (error) {
+            alert(error);
         }
     };
 }
@@ -58,6 +105,10 @@ export {
     receiveThreadDetailActionCreator,
     clearThreadDetailActionCreator,
     toggleVoteThreadDetailActionCreator,
+    addThreadCommentActionCreator,
     asyncReceiveThreadDetail,
     asyncToggleVoteThreadDetail,
+    asyncAddThreadComment,
+    toggleVoteCommentActionCreator,
+    asyncToggleVoteComment,
 };

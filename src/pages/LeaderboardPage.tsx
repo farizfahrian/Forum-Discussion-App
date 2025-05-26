@@ -19,8 +19,6 @@ function LeaderboardPage() {
         }
     })
 
-    console.log(leaderboards);
-
     return (
         <section className="bg-neutral-900 pt-12 pb-16">
             <LeaderboardList leaderboardList={leaderboardList} />
