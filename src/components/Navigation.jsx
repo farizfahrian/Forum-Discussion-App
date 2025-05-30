@@ -13,9 +13,9 @@ function Navigation({ authUser, signOut }) {
         </nav>
         {
           authUser === undefined ? (
-            <Link to="/login" className="px-4 py-2 font-medium text-red-500 rounded-full bg-neutral-50 hover:bg-neutral-200">Sign In</Link>
+            <Link to="/login" className="px-4 py-2 font-medium text-red-500 rounded-full bg-neutral-50 hover:bg-neutral-200">Sign in</Link>
           ) : (
-            <button type="button" onClick={signOut} className="px-4 py-2 font-medium text-red-500 rounded-full bg-neutral-50 hover:bg-neutral-200">Sign out</button>
+            <button type="button" onClick={signOut} className="px-4 py-2 font-medium rounded-full border-2 text-neutral-50 border-neutral-50 hover:bg-neutral-200 hover:text-neutral-700">Sign out, {authUser.name.charAt(0).toUpperCase() + authUser.name.slice(1)}</button>
           )
         }
       </div>

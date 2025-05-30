@@ -24,7 +24,7 @@ function ThreadInput({ onAddThread }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-4 mx-auto w-full max-w-xl rounded-lg bg-neutral-800">
+    <div className="flex flex-col gap-2 p-4 w-full rounded-lg bg-neutral-800">
       <input type="text" placeholder="Title" value={title} onChange={onTitleChange} className="block px-4 py-2 w-full rounded-md bg-neutral-700 placeholder-neutral-400 text-neutral-300" />
       <input type="text" placeholder="Category" value={category} onChange={onCategoryChange} className="block px-4 py-2 w-full rounded-md bg-neutral-700 placeholder-neutral-400 text-neutral-300" />
       <textarea placeholder="Body" value={body} onChange={onBodyChange} className="block px-4 py-2 w-full rounded-md bg-neutral-700 placeholder-neutral-400 text-neutral-300"></textarea>

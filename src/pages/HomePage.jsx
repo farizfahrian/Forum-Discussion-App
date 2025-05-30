@@ -45,13 +45,14 @@ function HomePage() {
   return (
     <section className='pt-32 pb-16 mx-6 min-h-screen bg-neutral-900'>
       <div className='flex flex-col-reverse gap-6 justify-center items-center mx-auto w-full md:items-start md:flex-row'>
-        <div>
+        <div className="flex flex-col gap-2 w-full max-w-xl">
           <ThreadInput onAddThread={onAddThread} />
           <ThreadsList threads={threadList} onVoteThread={onVoteThread} />
         </div>
         <CategoryList
           categories={categoryList}
           onCategoryClick={onCategoryClick}
+          selectedCategory={categoryFilter}
         />
       </div>
     </section>

@@ -2,11 +2,11 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../../utils/api';
 
 const ActionType = {
-  RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
-  CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
-  TOGGLE_VOTE_THREAD_DETAIL: 'TOGGLE_VOTE_THREAD_DETAIL',
-  ADD_THREAD_COMMENT: 'ADD_THREAD_COMMENT',
-  TOGGLE_VOTE_COMMENT: 'TOGGLE_VOTE_COMMENT',
+  RECEIVE_THREAD_DETAIL: 'threadDetail/receive',
+  CLEAR_THREAD_DETAIL: 'threadDetail/clear',
+  TOGGLE_VOTE_THREAD_DETAIL: 'threadDetail/toggleVoteThread',
+  ADD_THREAD_COMMENT: 'threadDetail/add',
+  TOGGLE_VOTE_COMMENT: 'threadDetail/toggleVoteComment',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {

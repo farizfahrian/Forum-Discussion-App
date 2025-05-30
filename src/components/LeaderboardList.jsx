@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function LeaderboardList({ leaderboardList }) {
   return (
-    <section className="pt-32">
+    <section className="pt-32 mx-4">
       <div className="flex flex-col gap-4 justify-center p-6 mx-auto max-w-lg rounded-lg border border-neutral-600">
         <h2 className="text-2xl font-bold text-white">Leaderboard</h2>
         <ul className="flex flex-col gap-4">
