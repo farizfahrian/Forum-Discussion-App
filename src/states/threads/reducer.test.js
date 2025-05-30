@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import { describe, it, expect } from 'vitest';
 import threadsReducer from './reducer';
+import { ActionType } from './action';
 
 /**
  * Test scenario for threadsReducer
@@ -28,7 +29,7 @@ describe('threadsReducer', () => {
     // arrange
     const initialState = [];
     const action = {
-      type: 'RECEIVE_THREADS',
+      type: ActionType.RECEIVE_THREADS,
       payload: {
         threads: [
           {
@@ -70,7 +71,7 @@ describe('threadsReducer', () => {
     // arrange
     const initialState = [];
     const action = {
-      type: 'ADD_THREAD',
+      type: ActionType.ADD_THREAD,
       payload: {
         thread: {
           id: '3',
@@ -111,7 +112,7 @@ describe('threadsReducer', () => {
       },
     ];
     const action = {
-      type: 'TOGGLE_VOTE_THREAD',
+      type: ActionType.TOGGLE_VOTE_THREAD,
       payload: {
         threadId: '1',
         voteType: 1,

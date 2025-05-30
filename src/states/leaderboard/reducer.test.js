@@ -2,6 +2,7 @@
 
 import { describe, it, expect } from 'vitest';
 import leaderboardReducer from './reducer';
+import { ActionType } from './action';
 
 /**
  * Test scenario for leaderboardReducer
@@ -27,7 +28,7 @@ describe('leaderboardReducer', () => {
     // arrange
     const initialState = [];
     const action = {
-      type: 'RECEIVE_LEADERBOARD',
+      type: ActionType.RECEIVE_LEADERBOARD,
       payload: {
         leaderboards: [
           {
@@ -56,6 +57,6 @@ describe('leaderboardReducer', () => {
     const nextState = leaderboardReducer(initialState, action);
 
     // assert
-    expect(nextState).toEqual(action.payload.leaderboards);
+    expect(nextState).toEqual(action.payload);
   });
 });

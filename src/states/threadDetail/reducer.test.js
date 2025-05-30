@@ -32,7 +32,7 @@ describe('threadDetailReducer', () => {
     // arrange
     const initialState = null;
     const action = {
-      type: 'RECEIVE_THREAD_DETAIL',
+      type: ActionType.RECEIVE_THREAD_DETAIL,
       payload: {
         threadDetail: {
           id: '1',
@@ -93,7 +93,10 @@ describe('threadDetailReducer', () => {
       createdAt: '2022-01-01T00:00:00.000Z',
       updatedAt: '2022-01-01T00:00:00.000Z',
     };
-    const action = { type: ActionType.TOGGLE_VOTE_THREAD_DETAIL, payload: { threadId: '1', voteType: 1, userId: '1' } };
+    const action = {
+      type: ActionType.TOGGLE_VOTE_THREAD_DETAIL,
+      payload: { threadId: '1', voteType: 1, userId: '1' },
+    };
 
     // action
     const nextState = threadDetailReducer(initialState, action);
