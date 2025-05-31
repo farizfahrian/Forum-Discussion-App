@@ -65,6 +65,9 @@ describe('Login', () => {
     
     // verification element homepage
     cy.url().should('eq', 'http://localhost:5173/')
-    cy.get('button').contains(/^Sign out$/).should('be.visible');
+    cy.get('button[title="Sign out"]').should('be.visible').and('have.attr', 'title', 'Sign out')
+      .within(() => {
+        cy.get('img[src="/assets/log-out.svg"]').should('be.visible').and('have.attr', 'alt', 'Log out');
+      });
   })
 })

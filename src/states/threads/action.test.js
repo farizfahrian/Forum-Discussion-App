@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import api from '../../../utils/api';
 import { addThreadActionCreator, asyncToggleVoteThread, toggleVoteThreadActionCreator } from './action';
 import { asyncAddThread } from './action';
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 
 /**
  * Test scenario for asyncThreads thunk
@@ -67,6 +68,9 @@ describe('asyncAddThread thunk', () => {
     await asyncAddThread(fakeAddThreads)(dispatch);
 
     expect(dispatch).toHaveBeenCalledWith(addThreadActionCreator(fakeAddThreads));
+
+    expect(dispatch).toHaveBeenCalledWith(showLoading());
+    expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
   it('should dispatch action and call alert correctly when data sending fails', async () => {
@@ -77,7 +81,9 @@ describe('asyncAddThread thunk', () => {
 
     await asyncAddThread(fakeAddThreads)(dispatch);
 
+    expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse);
+    expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });
 

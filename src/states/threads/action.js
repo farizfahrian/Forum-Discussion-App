@@ -34,7 +34,6 @@ function toggleVoteThreadActionCreator({ threadId, voteType, userId }) {
 
 function asyncAddThread({ title, body, category }) {
   return async (dispatch) => {
-    console.log('show loading is dispatched');
     dispatch(showLoading());
     try {
       const thread = await api.createThread({ title, body, category });

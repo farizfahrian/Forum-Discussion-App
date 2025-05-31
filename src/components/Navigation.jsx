@@ -12,10 +12,13 @@ function Navigation({ authUser, signOut }) {
           <Link to="/leaderboard" className="px-4 py-2 rounded-sm text-neutral-50 bg-neutral-700 hover:bg-neutral-600">Leaderboard</Link>
         </nav>
         {
-          authUser === undefined ? (
+          !authUser ? (
             <Link to="/login" className="px-4 py-2 font-medium text-red-500 rounded-full bg-neutral-50 hover:bg-neutral-200">Sign in</Link>
           ) : (
-            <button type="button" onClick={signOut} className="px-4 py-2 font-medium rounded-full border-2 text-neutral-50 border-neutral-50 hover:bg-neutral-200 hover:text-neutral-700">Sign out, {authUser.name.charAt(0).toUpperCase() + authUser.name.slice(1)}</button>
+            <>
+              <p>{authUser.name.charAt(0).toUpperCase() + authUser.name.slice(1)}</p>
+              <button type="button" onClick={signOut} title="Sign out" className="px-1 py-2 font-medium rounded-md border-2 text-neutral-50 border-neutral-50 hover:bg-neutral-700 hover:text-neutral-700"><img src="/assets/log-out.svg" alt="Log out" className="w-5 h-5" /></button>
+            </>
           )
         }
       </div>
@@ -24,7 +27,9 @@ function Navigation({ authUser, signOut }) {
 }
 
 Navigation.propTypes = {
+  /** Authenticated user */
   authUser: PropTypes.object,
+  /** Sign out function */
   signOut: PropTypes.func.isRequired
 };
 

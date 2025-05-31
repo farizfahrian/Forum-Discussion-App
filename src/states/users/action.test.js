@@ -17,7 +17,7 @@ const fakeRegisterUsers = {
   name: 'John Doe',
   email: 'john.doe@example.com',
   password: 'password',
-//   successCallback: vi.fn(),
+  successCallback: vi.fn(),
 };
 
 const fakeErrorResponse = new Error('Error fetching data');
@@ -53,7 +53,7 @@ describe('asyncRegisterUsers thunk', () => {
     await asyncRegisterUsers(fakeRegisterUsers)(dispatch);
 
     expect(dispatch).toHaveBeenCalledWith(showLoading());
-    expect(dispatch).toHaveBeenCalledWith(hideLoading());
     expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse);
+    expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });
